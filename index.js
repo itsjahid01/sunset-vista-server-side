@@ -10,12 +10,23 @@ const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 const port = process.env.PORT || 8000;
 
 // middleware
-const corsOptions = {
-  origin: "https://sunset-vista-client-side.vercel.app/",
-  credentials: true,
-  optionSuccessStatus: 200,
-};
-app.use(cors(corsOptions));
+// const corsOptions = {
+//   origin: "https://sunset-vista-client-side.vercel.app/",
+//   credentials: true,
+//   optionSuccessStatus: 200,
+// };
+// app.use(cors(corsOptions));
+app.use((req, res, next) => {
+  //Remove trailing slash to fix CORS mismatch
+  const origin = req.headers.origin;
+  if (origin === "https://sunset-vista-client-side.vercel.app/") {
+    res.setHeader(
+      "Access-Control-Allow-Origin",
+      "https://sunset-vista-client-side.vercel.app"
+    );
+  }
+  next();
+});
 
 app.use(express.json());
 app.use(cookieParser());

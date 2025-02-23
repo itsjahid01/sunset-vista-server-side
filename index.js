@@ -10,21 +10,13 @@ const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 const port = process.env.PORT || 8000;
 
 // middleware
-// const corsOptions = {
-//   origin: "https://sunset-vista-client-side.vercel.app/",
-//   credentials: true,
-//   optionSuccessStatus: 200,
-// };
-// app.use(cors(corsOptions));
-
-app.use(
-  cors({
-    origin: "https://sunset-vista-client-side.vercel.app",
-    credentials: true,
-    methods: ["GET", "POST", "PUT", "PATCH", "DELETE"], // Specify allowed HTTP methods
-    allowedHeaders: ["Content-Type", "Authorization"], // Specify allowed headers
-  })
-);
+const corsOptions = {
+  origin: "https://sunset-vista-client-side.vercel.app",
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "PATCH", "DELETE"], // Specify allowed HTTP methods
+  allowedHeaders: ["Content-Type", "Authorization"], // Specify allowed headers
+};
+app.use(cors(corsOptions));
 
 app.use(express.json());
 app.use(cookieParser());

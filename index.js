@@ -16,17 +16,26 @@ const port = process.env.PORT || 8000;
 //   optionSuccessStatus: 200,
 // };
 // app.use(cors(corsOptions));
-app.use((req, res, next) => {
-  //Remove trailing slash to fix CORS mismatch
-  const origin = req.headers.origin;
-  if (origin === "https://sunset-vista-client-side.vercel.app/") {
-    res.setHeader(
-      "Access-Control-Allow-Origin",
-      "https://sunset-vista-client-side.vercel.app"
-    );
-  }
-  next();
-});
+
+app.use(
+  cors({
+    origin: "https://sunset-vista-client-side.vercel.app",
+    methods: ["GET", "POST", "PUT", "DELETE"], // Specify allowed HTTP methods
+    allowedHeaders: ["Content-Type", "Authorization"], // Specify allowed headers
+  })
+);
+
+// app.use((req, res, next) => {
+//   //Remove trailing slash to fix CORS mismatch
+//   const origin = req.headers.origin;
+//   if (origin === "https://sunset-vista-client-side.vercel.app/") {
+//     res.setHeader(
+//       "Access-Control-Allow-Origin",
+//       "https://sunset-vista-client-side.vercel.app"
+//     );
+//   }
+//   next();
+// });
 
 app.use(express.json());
 app.use(cookieParser());

@@ -20,6 +20,7 @@ const port = process.env.PORT || 8000;
 app.use(
   cors({
     origin: "https://sunset-vista-client-side.vercel.app",
+    credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE"], // Specify allowed HTTP methods
     allowedHeaders: ["Content-Type", "Authorization"], // Specify allowed headers
   })
